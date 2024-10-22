@@ -8,7 +8,7 @@ import lombok.Data;
 public class Book {
     private String name;
     private String author;
-    private short publishingYear;
+    private int publishingYear;
     private String isbn;
     private  String publisher;
 

@@ -6,7 +6,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -45,10 +47,38 @@ public class Main {
                 .collect(Collectors.toSet()); // преобразуем результат потока в мн-во
 
         // System.out.println(books);
+        // System.out.println("Кол-во книг = " + books.size());
 
 
 
-        //
+
+        System.out.println("\n\tЗАДАНИЕ 3: \nОтсортировать по году издания и вывести список книг.\n");
+        Set<Book> byYearBooks = books;
+
+       /* Optional<Book> tempOptionalBook = books.stream().findFirst();
+       Book tempBook = tempOptionalBook.get(); */
+
+        byYearBooks
+                .stream()
+                .sorted(Comparator.comparingInt(Book::getPublishingYear))
+                .collect(Collectors.toList());
+
+        System.out.println(byYearBooks);
+
+
+
+        System.out.println("\n\tЗАДАНИЕ 4: \nПроверить, есть ли у кого-то в избранном книга автора Jane Austen.");
+        boolean janeAustenBook = books.stream()
+                .anyMatch(book -> "Jane Austen".equals(book.getAuthor()));
+
+        if (janeAustenBook) {
+            System.out.println("Да.");
+        } else System.out.println("No");
+
+
+
+
+
 
 
     }
