@@ -12,4 +12,12 @@ public class Visitor {
     private String phone;
     private List<Book> favoriteBooks;
     private boolean subscribed;
+
+    @Override
+    public String toString() {
+        return ("Имя:" + name +
+                "\nФамилия: " + surname +
+                "\nТелефон: " + phone +
+                "\nЛюбимые книги: " + favoriteBooks);
+    }
 }
