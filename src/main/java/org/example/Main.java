@@ -29,16 +29,16 @@ public class Main {
 
 
 
-        System.out.println("\n\tЗАДАНИЕ 1:\nВывести список посетителей и их кол-во.\n");
+        System.out.println("\n\tЗАДАНИЕ 1:\nВывести список посетителей и их кол-во.");
         long visitorsCount = visitors.size();
         for (Visitor visitor : visitors) {
-            // System.out.println(visitor + "\n");
+            System.out.println(visitor + "\n");
         }
         System.out.println("Кол-во посетителей: " + visitorsCount);
 
 
 
-        System.out.println("\n\tЗАДАНИЕ 2:\nСписок и кол-во книг из избранного без повт.\n");
+        System.out.println("\n\tЗАДАНИЕ 2:\nСписок и кол-во книг из избранного без повт.");
         Set<Book> books;
         books = visitors
                 .stream() // закидываем всё в поток
@@ -46,17 +46,14 @@ public class Main {
                 // вытаскиваем список книг из каждого элемента потока (посетителя)
                 .collect(Collectors.toSet()); // преобразуем результат потока в мн-во
 
-        // System.out.println(books);
-        // System.out.println("Кол-во книг = " + books.size());
+        System.out.println(books);
+        System.out.println("Кол-во книг = " + books.size());
 
 
 
 
         System.out.println("\n\tЗАДАНИЕ 3: \nОтсортировать по году издания и вывести список книг.\n");
         Set<Book> byYearBooks = books;
-
-       /* Optional<Book> tempOptionalBook = books.stream().findFirst();
-       Book tempBook = tempOptionalBook.get(); */
 
         byYearBooks
                 .stream()
@@ -78,7 +75,7 @@ public class Main {
 
 
 
-        System.out.println("\n\tЗАДАНИЕ 5: \nМакс. число добавленных в избранное книг\n= ");
+        System.out.println("\n\tЗАДАНИЕ 5: \nМакс. число добавленных в избранное книг");
         Set<Integer> countOfBooks;
         countOfBooks = allVisitors
                 .stream()
@@ -88,9 +85,30 @@ public class Main {
 
 
 
+        System.out.println("\n\tЗАДАНИЕ 6: \nSMS-сообщения \n");
+        List<Integer> booksCount = allVisitors.stream()
+                .map(visitor -> visitor.getFavoriteBooks().size()).collect(Collectors.toList());
+
+        int sum = booksCount.stream()
+                .mapToInt(Integer::intValue).sum();
+        double averageBooksCount = (double) sum / booksCount.size();
 
 
-
-
+        allVisitors.stream()
+                .filter(visitor -> visitor.isSubscribed())
+                .forEach(visitor -> {
+                    int favBooksCount = visitor.getFavoriteBooks().size();
+                    Sms sms;
+                    if (favBooksCount > averageBooksCount) {
+                        sms = new Sms("you're a bookworm", visitor.getPhone());
+                        System.out.println(sms);
+                    } else if (favBooksCount < averageBooksCount) {
+                        sms = new Sms("read more", visitor.getPhone());
+                        System.out.println(sms);
+                    } else {
+                        sms = new Sms("fine", visitor.getPhone());
+                        System.out.println(sms);
+                    }
+                });
     }
 }

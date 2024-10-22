@@ -8,4 +8,9 @@ import lombok.Data;
 public class Sms {
     private String message;
     private  String phoneNumber;
+
+    @Override
+    public String toString() {
+        return ( phoneNumber + ":\n\t" + message);
+    }
 }
