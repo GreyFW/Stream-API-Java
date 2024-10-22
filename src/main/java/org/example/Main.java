@@ -33,6 +33,8 @@ public class Main {
         }
         System.out.println("Кол-во посетителей: " + visitorsCount);
 
+        System.out.println("\n\tЗАДАНИЕ 2:\nСписок и кол-во книг из избранного без повт.\n");
+
 
     }
 }

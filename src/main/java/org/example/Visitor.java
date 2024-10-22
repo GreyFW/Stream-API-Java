@@ -15,9 +15,9 @@ public class Visitor {
 
     @Override
     public String toString() {
-        return ("Имя:" + name +
+        return ("Имя: " + name +
                 "\nФамилия: " + surname +
                 "\nТелефон: " + phone +
-                "\nЛюбимые книги: " + favoriteBooks);
+                "\n\t\tЛюбимые книги: " + favoriteBooks);
     }
 }
