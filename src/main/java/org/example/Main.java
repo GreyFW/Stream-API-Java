@@ -6,10 +6,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -27,6 +24,9 @@ public class Main {
             return;
         }
 
+        List<Visitor> allVisitors = visitors;
+        // дубль на всякий случай
+
 
 
         System.out.println("\n\tЗАДАНИЕ 1:\nВывести список посетителей и их кол-во.\n");
@@ -43,7 +43,7 @@ public class Main {
         books = visitors
                 .stream() // закидываем всё в поток
                 .flatMap(visitor -> visitor.getFavoriteBooks().stream())
-                // вытаскиваем список книг из каждого элемеента потока (посетителя)
+                // вытаскиваем список книг из каждого элемента потока (посетителя)
                 .collect(Collectors.toSet()); // преобразуем результат потока в мн-во
 
         // System.out.println(books);
@@ -70,10 +70,21 @@ public class Main {
         System.out.println("\n\tЗАДАНИЕ 4: \nПроверить, есть ли у кого-то в избранном книга автора Jane Austen.");
         boolean janeAustenBook = books.stream()
                 .anyMatch(book -> "Jane Austen".equals(book.getAuthor()));
+        // метод возвращает true/false и останавливает работу при первом же совпадении.
 
         if (janeAustenBook) {
             System.out.println("Да.");
         } else System.out.println("No");
+
+
+
+        System.out.println("\n\tЗАДАНИЕ 5: \nМакс. число добавленных в избранное книг\n= ");
+        Set<Integer> countOfBooks;
+        countOfBooks = allVisitors
+                .stream()
+                .map(visitor -> visitor.getFavoriteBooks().size()).collect(Collectors.toSet());
+
+        System.out.print(Collections.max(countOfBooks));
 
 
 
